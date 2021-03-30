@@ -19,14 +19,17 @@ app.use(cors({ origin: "*" }))
 app.use(bodyParser.json())
 
 // routes
-app.get('/createPost', async (req, res) => {
-  const { title, markdown, user } = req.query 
+app.get('/createPost', async (req ,res ) => {
+  const { title, markdown, user } = req.body
   db().then(connection => {
     console.log(user)
     console.log(title)
     console.log(markdown)
     let post = new Post()
     post.title = title
+    post.markdown = markdown
+
+		connection.manager.save(post)
 
     connection.close()
   }).catch(error => console.log(error))

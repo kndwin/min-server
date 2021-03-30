@@ -2,6 +2,7 @@
    "name": "new-typeorm-project",
    "version": "0.0.1",
    "description": "Save and edit posts.",
+	 "license": "MIT", 
    "main": "server.ts",
    "devDependencies": {
       "@types/cors": "^2.8.10",
