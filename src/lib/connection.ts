@@ -13,7 +13,7 @@ export async function db () : Promise<Connection> {
       }
     }, 
     entities: [
-      __dirname + "/entity/*.ts"
+      __dirname + `/../entity/*.ts`
     ]
   })
 }

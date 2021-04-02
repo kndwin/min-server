@@ -6,7 +6,7 @@ import {
 import { Post } from './Post'
 
 @Entity()
-export class User {
+export class Users {
 
   @PrimaryGeneratedColumn()
   id: number;

@@ -3,7 +3,7 @@ import {
   ManyToOne
 } from "typeorm";
 
-import { User } from './User'
+import { Users } from './Users'
 
 @Entity()
 export class Post {
@@ -21,7 +21,7 @@ export class Post {
   })
   markdown: string;
 
-  @ManyToOne(type => User, user => user.posts)
-  user: User;
+  @ManyToOne(type => Users, user => user.posts)
+  user: Users;
 
 }
