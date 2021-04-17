@@ -3,8 +3,10 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import morgan from 'morgan'
 import bodyParser from 'body-parser'
+import { graphqlHTTP } from 'express-graphql'
 import "reflect-metadata"
 
+import { schema, root } from './lib/graphql'
 import { db } from "./lib/connection"
 import { Post, Users } from "./entity"
 
@@ -20,9 +22,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 // routes
-app.post('/createUser', async (req ,res ) => {
+app.post('/getUser', async (req ,res ) => {
   const { name, source } = await req.body
-
   db().then(async connection => {
 		// Save post 
 		let userRepo = connection.getRepository( Users )
@@ -44,7 +45,6 @@ app.post('/createUser', async (req ,res ) => {
 		res.json({error: 'An error occured'})
 	}) 
 })
-
 
 app.post('/createPost', async (req ,res ) => {
   const { title, markdown, user } = await req.body
@@ -73,6 +73,12 @@ app.post('/createPost', async (req ,res ) => {
 		res.json({error: 'An error occured'})
 	}) 
 })
+
+app.use(`/graphql`, graphqlHTTP({
+	schema: schema,
+	rootValue: root,
+	graphiql: true
+}))
 
 // start server
 app.listen(port, async () => {
